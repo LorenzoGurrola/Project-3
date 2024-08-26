@@ -31,14 +31,13 @@ class test_forward_and_back_prop(unittest.TestCase):
         w = torch.tensor(w, requires_grad=True)
         b = torch.tensor(b, requires_grad=True)
         z = (X @ w + b).clone().detach().requires_grad_(True)
-        print(f'z {z}')
         yhat = (1/(1 + torch.exp(-z))).clone().detach().requires_grad_(True)
         losses = (y * torch.log(yhat)) + ((1 - y) * torch.log(1 - yhat))
         cost = -torch.sum(losses, dim=0, keepdims=True)/m
         print(f'cost torch {cost}')
         cost.backward()
         print(f'dyhat {yhat.grad.detach()}')
-        print(f'dz_dw {z.grad}')
+        print(f'dz_dw {z.grad.deta}')
         dw_expected = w.grad.detach().numpy()
         db_expected = b.grad.detach().numpy()
         dyhat = yhat.grad
