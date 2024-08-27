@@ -43,12 +43,10 @@ def calculate_cost(yhat, y):
 
 def back_prop(y, yhat, inter_vals, X):
     m = y.shape[0]
-    z = inter_vals['z']
     dc_dyhat = (-1/m) * ((y/yhat) - ((1-y)/(1-yhat)))
-    dyhat_dz = sigmoid(z) * (1 - sigmoid(z))
+    dyhat_dz = yhat * (1 - yhat)
     dc_dz = dc_dyhat * dyhat_dz
+    dc_dw = np.matmul(X.T, dc_dz)
     dc_db = np.sum(dc_dz, axis=0, keepdims=True)
-    dz_dw = np.sum(X, axis=1, keepdims=True)
-    dc_dw = dc_dz * dz_dw
     grads = {'dw':dc_dw, 'db':dc_db}
     return grads

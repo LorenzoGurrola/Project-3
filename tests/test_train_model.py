@@ -14,11 +14,12 @@ if True:
 class test_forward_and_back_prop(unittest.TestCase):
 
     def test_basic(self):
-        m = 2
-        X = np.array([[0.8, 0.9], [0.3, 0.5]])
-        w = np.array([[0.5], [0.75]])
-        b = np.array([[1.]])
-        y = np.array([[1], [0]])
+        m = 100
+        n = 100
+        X = np.random.randn(m,n)
+        w = np.random.rand(n, 1) * 0.1
+        b = np.zeros((1,1))
+        y = np.random.randint(0, 2, size=(m, 1))
         params = {'w':w,'b':b}
         yhat, inter_vals = forward_prop(X, params)
         cost = calculate_cost(yhat, y)
@@ -30,18 +31,13 @@ class test_forward_and_back_prop(unittest.TestCase):
         y = torch.tensor(y)
         w = torch.tensor(w, requires_grad=True)
         b = torch.tensor(b, requires_grad=True)
-        z = (X @ w + b).clone().detach().requires_grad_(True)
-        yhat = (1/(1 + torch.exp(-z))).clone().detach().requires_grad_(True)
+        z = X @ w + b
+        yhat = 1/(1 + torch.exp(-z))
         losses = (y * torch.log(yhat)) + ((1 - y) * torch.log(1 - yhat))
         cost = -torch.sum(losses, dim=0, keepdims=True)/m
-        print(f'cost torch {cost}')
         cost.backward()
-        print(f'dyhat {yhat.grad.detach()}')
-        print(f'dz_dw {z.grad.deta}')
         dw_expected = w.grad.detach().numpy()
         db_expected = b.grad.detach().numpy()
-        dyhat = yhat.grad
-        
         
         np.testing.assert_allclose(dw_result, dw_expected)
         np.testing.assert_allclose(db_result, db_expected)
