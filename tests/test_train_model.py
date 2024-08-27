@@ -8,7 +8,7 @@ if True:
     import sys
     sys.path.insert(
         0, 'C:/Users/Lorenzo/Desktop/Workspace/Github/Project-3/src')
-    from train_model import initialize_params, forward_prop, calculate_cost, back_prop, sigmoid
+    from train_model import forward_prop, calculate_cost, back_prop
 
 
 class test_forward_and_back_prop(unittest.TestCase):

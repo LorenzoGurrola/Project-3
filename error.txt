@@ -1,7 +1,0 @@
-Mismatched elements: 2 / 2 (100%)
-Max absolute difference: 0.17338878
-Max relative difference: 2.20678337
- x: array([[-0.094818],
-       [ 0.328509]])
- y: array([[0.078571],
-       [0.155121]])
