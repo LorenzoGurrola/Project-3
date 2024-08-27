@@ -3,11 +3,15 @@ from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 import torch
 import torch.nn as nn
+import platform
 
 if True:
     import sys
-    sys.path.insert(
-        0, 'C:/Users/Lorenzo/Desktop/Workspace/Github/Project-3/src')
+    system = platform.system()
+    if system == "Windows":
+        sys.path.insert(0, 'C:/Users/Lorenzo/Desktop/Workspace/Github/Project-3/src')
+    elif system == "Darwin":
+        sys.path.insert(0, '/Users/lorenzogurrola/workspace/github.com/LorenzoGurrola/Project-3/src')
     from train_model import forward_prop, calculate_cost, back_prop
 
 
